@@ -173,5 +173,4 @@ public abstract class Human implements HumanActions, EmergencyActions{
         }
     }
 
-
 }

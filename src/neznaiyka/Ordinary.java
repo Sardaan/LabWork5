@@ -30,12 +30,5 @@ public class Ordinary extends Human{
 
 
     }
-
-
-
-
-
-
-
 }
 

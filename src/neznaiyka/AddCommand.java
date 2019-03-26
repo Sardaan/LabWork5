@@ -20,7 +20,7 @@ public class AddCommand extends Command{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String human = br.readLine();
         if (HumanDeque.getAvailableHumans().contains(human)){
-            addHuman(human);
+            addHumanFromList(human);
             HumanDeque.setAvailableHumans(HumanDeque.getAvailableHumans().replace(human, "").replace(";;",";").replaceAll("^;|;$",""));
             FileRedactor.writeInFile(HumanDeque.getAvailableHumans(),FileRedactor.readFile(HumanDeque.getAvailableHumansFile()));
         }else
@@ -36,22 +36,51 @@ public class AddCommand extends Command{
     public static void add(ArrayDeque<Human> humans) throws IOException{
 
         System.out.println("Humans paramaters: {name, thinkingType, talent,is he weird or ordinary}");
-        //TODO key-value
         ArrayList<String> humanInfo = JSONreader.getJSON();
 
-        String info = addToDeque(humanInfo);
-        if ( FileRedactor.readFile(HumanDeque.getOutput())!=null)
+        String info = addHuman(humanInfo);
+        if (info!=null && FileRedactor.readFile(HumanDeque.getOutput())!=null)
             FileRedactor.addToFile(HumanDeque.getOutput(),"\n"+info);
-        else
+        if (info!=null && FileRedactor.readFile(HumanDeque.getOutput())==null)
             FileRedactor.addToFile(HumanDeque.getOutput(),info);
+
+    }
+
+
+    /**
+     * if the name of human in the list at the bottom, human'll be added to the collection
+     *
+     * @param humans
+     * @throws IOException
+     */
+    public static void add_if_last(ArrayDeque<Human> humans) throws IOException{
+        String info = null;
+        String name = null;
+
+        System.out.println("Humans paramaters: {name, thinkingType, talent,is he weird or ordinary}");
+        ArrayList<String> humanInfo = JSONreader.getJSON();
+        for (String str: humanInfo){
+            if (str.contains("name")) {
+                try {
+                    name = str.replace("name-", "");
+                    System.out.println(name);
+                } catch (ArrayIndexOutOfBoundsException ignored) {}
+            }
+        }
+        if (name!=null && HumanDeque.compareTo(name)==0) {
+            info = addHuman(humanInfo);
+            if ( FileRedactor.readFile(HumanDeque.getOutput())!=null)
+                FileRedactor.addToFile(HumanDeque.getOutput(),"\n"+info);
+            else
+                FileRedactor.addToFile(HumanDeque.getOutput(),info);
+        }
 
 
     }
-    public static ArrayDeque<Human> addHuman(String input) {
+    public static ArrayDeque<Human> addHumanFromList(String input) {
 
         String information="";
         for (String human : input.split(";")){
-
             switch (human){
                 case "Pilulkin":
                     HumanDeque.getHumans().add(new Ordinary("Pilulkin",ThinkingType.GENIUS, Talent.MEDICINE));
@@ -89,20 +118,25 @@ public class AddCommand extends Command{
                     System.out.println("   блять опять че то не так!");
                     break;
             }
+            if ( FileRedactor.readFile(HumanDeque.getOutput())!=null)
+                FileRedactor.addToFile(HumanDeque.getOutput(),"\n"+information);
+            else
+                FileRedactor.addToFile(HumanDeque.getOutput(),information);
         }
-        if ( FileRedactor.readFile(HumanDeque.getOutput())!=null)
-            FileRedactor.addToFile(HumanDeque.getOutput(),"\n"+information);
-        else
-            FileRedactor.addToFile(HumanDeque.getOutput(),information);
+        FileRedactor.writeInFile(HumanDeque.getAvailableHumansFile(),"Pilulkin;Tubic");
         return HumanDeque.getHumans();
+
     }
 
-    public static String addToDeque(ArrayList<String> humanInfo){
+    public static String addHuman(ArrayList<String> humanInfo){
 
 
-        int pick = new Random().nextInt(ThinkingType.values().length);
-        ThinkingType thinkingType = ThinkingType.values()[pick];
-        Talent talent = Talent.NOPE;;
+        int pick1 = new Random().nextInt(ThinkingType.values().length);
+        ThinkingType thinkingType = ThinkingType.values()[pick1];
+
+        int pick2 = new Random().nextInt(Talent.values().length);
+        Talent talent = Talent.values()[pick2];
+
         String name=null;
         String humanType = null;
 
@@ -167,9 +201,19 @@ public class AddCommand extends Command{
             }
         }
         for (String info : humanInfo){
-            if(info.contains("humanType")){
+            if(name!=null && info.contains("humanType")){
                 try{
                     switch (info.replace("humanType-","")){
+                        case "korotyshka":
+                        case "Korotyshka":
+                            HumanDeque.getHumans().add(new Korotyshka(name, thinkingType));
+                            humanType = "korotyshka";
+                            break;
+                        case "malyish":
+                        case "Malyish":
+                            HumanDeque.getHumans().add(new Korotyshka.Malyish(name, thinkingType));
+                            humanType = "malyish";
+                            break;
                         case "weirdo":
                         case "Weirdo":
                             HumanDeque.getHumans().add(new Weirdo(name, thinkingType, talent));
@@ -182,7 +226,11 @@ public class AddCommand extends Command{
                     }
                 }catch (ArrayIndexOutOfBoundsException ignored){}
             }
-        }return humanType +";"+ name +";"+ thinkingType +";"+ talent;
+        }
+        if (name!=null){
+            return humanType +";"+ name +";"+ thinkingType +";"+ talent;}
+        else
+            return null;
 
     }
 

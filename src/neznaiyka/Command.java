@@ -22,18 +22,20 @@ public class Command {
                 case "add":
                     AddCommand.add(HumanDeque.getHumans());
                     break;
+                case "add_if_last":
+                    AddCommand.add_if_last(HumanDeque.getHumans());
+                    break;
                 case "show":
                     System.out.println(OutCommand.show());
                     break;
                 case "show_list":
                     System.out.println(OutCommand.show_list());
                     break;
-                // TODO info дописать чего нибудь
                 case "info":
                     System.out.println(OutCommand.info());
                     break;
                 case "remove":
-                    RemoveCommand.remove();
+                    RemoveCommand.removeFromDeque();
                     break;
                 case "remove_last":
                     RemoveCommand.remove_last();
@@ -41,8 +43,8 @@ public class Command {
                 case "start":
                     start();
                     break;
-                case "clear":
-                    RemoveCommand.removeAll();
+                case "clean":
+                    RemoveCommand.clean();
                     break;
                 case "help":
                     System.out.println(OutCommand.help());
@@ -72,7 +74,7 @@ public class Command {
                 humanInfo.add("thinkingType-" + s.split(";")[2]);
                 humanInfo.add("talent-" + s.split(";")[3]);
 
-                AddCommand.addToDeque(humanInfo);
+                AddCommand.addHuman(humanInfo);
                 humanInfo.clear();
             }
         }
@@ -89,7 +91,7 @@ public class Command {
 
 
         if (HumanDeque.getHumans().size() <= 2){
-            Action.startAction(AddCommand.addHuman(FileRedactor.readFile(HumanDeque.getInput())));
+            Action.startAction(AddCommand.addHumanFromList(FileRedactor.readFile(HumanDeque.getInput())));
             //FileRedactor.writeInFile(output,FileRedactor.readFile(input));
         }else{
             try{Action.getSize(HumanDeque.getHumans());

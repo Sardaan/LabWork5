@@ -8,19 +8,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class JSONreader {
 
     public static ArrayList getJSON() throws IOException {
+        int i=0;
         ArrayList<String> info = new ArrayList<>();
-        BufferedReader str = new BufferedReader(new InputStreamReader(System.in));
-        String jsonString = str.readLine();
+        //BufferedReader str = new BufferedReader(new InputStreamReader(System.in));
+        Scanner scan = new Scanner(System.in);
+        String jsonString = scan.nextLine();
+        while (!jsonString.contains("}")){
+
+            jsonString = jsonString + scan.nextLine();
+
+        }
+        //scan.close();
+
+
         try {
             Object obj = new JSONParser().parse(jsonString);
-
             JSONObject jsonObject = (JSONObject) obj;
-
 
 
             String humanType = (String) jsonObject.get("humanType");
@@ -37,10 +46,13 @@ public class JSONreader {
 
 
 
-        } catch (ParseException e) {
-            //e.printStackTrace();
-            System.out.println("can not read what you write, make sure its written in json format");
-        }
+            } catch (ParseException e) {
+                //e.printStackTrace();
+                System.out.println("can not read what you write, make sure its written in json format");
+            }
+
+
+
         return info;
 
     }

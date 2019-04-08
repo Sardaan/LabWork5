@@ -81,23 +81,18 @@ public abstract class Human implements HumanActions, EmergencyActions{
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return name.hashCode() + thinkingType.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Human other = (Human) obj;
-        if (name != other.name)
-            return false;
-        if (thinkingType != other.thinkingType)
-            return false;
-        return true;
+
+        if (obj instanceof Human){
+              if (((Human) obj).name.equals(this.name) && ((Human) obj).thinkingType == this.thinkingType)
+                  return true;
+        }
+        return false;
+
     }
 
     @Override

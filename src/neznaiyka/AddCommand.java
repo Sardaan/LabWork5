@@ -3,9 +3,7 @@ package neznaiyka;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class AddCommand extends Command{
 
@@ -48,32 +46,38 @@ public class AddCommand extends Command{
 
 
     /**
-     * if the name of human in the list at the bottom, human'll be added to the collection
+     * if the name of human in the list,sorted by alphabet, at the bottom, human'll be added to the collection
      *
      * @param humans
      * @throws IOException
      */
     public static void add_if_last(ArrayDeque<Human> humans) throws IOException{
-        String info = null;
+        String info;
         String name = null;
 
         System.out.println("Humans paramaters: {name, thinkingType, talent,is he weird or ordinary}");
         ArrayList<String> humanInfo = JSONreader.getJSON();
+        TreeSet<String> names = new TreeSet<>();
         for (String str: humanInfo){
             if (str.contains("name")) {
                 try {
                     name = str.replace("name-", "");
-                    System.out.println(name);
+                    names.add(name);
                 } catch (ArrayIndexOutOfBoundsException ignored) {}
             }
         }
-        if (name!=null && HumanDeque.compareTo(name)==0) {
+        for(Human hum : humans){
+            names.add(hum.getName());
+        }
+
+        if (name!=null && names.last().equals(name)) {
             info = addHuman(humanInfo);
             if ( FileRedactor.readFile(HumanDeque.getOutput())!=null)
                 FileRedactor.addToFile(HumanDeque.getOutput(),"\n"+info);
             else
                 FileRedactor.addToFile(HumanDeque.getOutput(),info);
         }
+
 
 
     }
@@ -178,21 +182,21 @@ public class AddCommand extends Command{
 
             if (info.contains("talent")){
                 try{
-                    switch (info.replace("talent-","")){
+                    switch (info.replace("talent-","").toLowerCase()){
                         case "painting":
-                        case "PAINTING":
+//                        case "PAINTING":
                             talent = Talent.PAINTING;
                             break;
                         case "music":
-                        case "MUSIC":
+//                        case "MUSIC":
                             talent = Talent.MUSIC;
                             break;
                         case "cooking":
-                        case "COOKING":
+//                        case "COOKING":
                             talent = Talent.COOKING;
                             break;
                         case "knowlege":
-                        case "KNOWLEGE":
+//                        case "KNOWLEGE":
                             talent = Talent.KNOWLEGE;
                             break;
                     }
@@ -233,6 +237,7 @@ public class AddCommand extends Command{
             return null;
 
     }
+
 
 
 

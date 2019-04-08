@@ -20,8 +20,6 @@ public class RemoveCommand extends Command{
             if (hum.getName().equals(human)) {
                 humanToRemove = hum;
             }
-//                FileRedactor.readFile(HumanDeque.getOutput()).replaceAll("^[\\s]+","");
-//                FileRedactor.writeInFile(HumanDeque.getOutput(), FileRedactor.readFile(HumanDeque.getOutput()).replaceAll("^[\\s]+",""));
         }if (humanToRemove!=null){myRemove(humanToRemove);}
 
     }
@@ -39,6 +37,7 @@ public class RemoveCommand extends Command{
         int size = HumanDeque.getHumans().size();
         for(int i=0; i<size;i++)
             remove_last();
+        HumanDeque.setAvailableHumans("Pilulkin;Guslya;Ponchik;Steclyashkin;Tubic;Znaika;Lenny;Ern");
     }
 
 

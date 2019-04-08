@@ -18,12 +18,15 @@ public class Command {
                     System.out.println("List of available humans:");
                     System.out.println(OutCommand.show_list());
                     AddCommand.add_from_list();
+                    System.out.println("write next command");
                     break;
                 case "add":
                     AddCommand.add(HumanDeque.getHumans());
+                    System.out.println("write next command");
                     break;
                 case "add_if_last":
                     AddCommand.add_if_last(HumanDeque.getHumans());
+                    System.out.println("write next command");
                     break;
                 case "show":
                     System.out.println(OutCommand.show());
@@ -36,15 +39,18 @@ public class Command {
                     break;
                 case "remove":
                     RemoveCommand.removeFromDeque();
+                    System.out.println("write next command");
                     break;
                 case "remove_last":
                     RemoveCommand.remove_last();
+                    System.out.println("write next command");
                     break;
                 case "start":
                     start();
                     break;
                 case "clean":
                     RemoveCommand.clean();
+                    System.out.println("write next command");
                     break;
                 case "help":
                     System.out.println(OutCommand.help());
@@ -61,23 +67,26 @@ public class Command {
     }
 
     public static void update() {
-        if (FileRedactor.readFile(HumanDeque.getOutput()) != null) {
-            String info = FileRedactor.readFile(HumanDeque.getOutput()).replaceAll("^[\\s]+", "");
-            FileRedactor.writeInFile(HumanDeque.getOutput(), info);
-            String str[] = info.replaceAll("[\\s]+", "zzz").split("zzz");
-            for (String s : str) {
+        if (HumanDeque.getOutput()!=null) {
+            if (FileRedactor.readFile(HumanDeque.getOutput()) != null) {
+                String info = FileRedactor.readFile(HumanDeque.getOutput()).replaceAll("^[\\s]+", "");
+                FileRedactor.writeInFile(HumanDeque.getOutput(), info);
+                String str[] = info.replaceAll("[\\s]+", "zzz").split("zzz");
+                for (String s : str) {
 
-                ArrayList<String> humanInfo = new ArrayList<>();
+                    ArrayList<String> humanInfo = new ArrayList<>();
 
-                humanInfo.add("humanType-" + s.split(";")[0]);
-                humanInfo.add("name-" + s.split(";")[1]);
-                humanInfo.add("thinkingType-" + s.split(";")[2]);
-                humanInfo.add("talent-" + s.split(";")[3]);
+                    humanInfo.add("humanType-" + s.split(";")[0]);
+                    humanInfo.add("name-" + s.split(";")[1]);
+                    humanInfo.add("thinkingType-" + s.split(";")[2]);
+                    humanInfo.add("talent-" + s.split(";")[3]);
 
-                AddCommand.addHuman(humanInfo);
-                humanInfo.clear();
+                    AddCommand.addHuman(humanInfo);
+                    humanInfo.clear();
+                }
             }
-        }
+        }else
+            System.out.println("your output enviroment is null" + "\n"+ "at first write: export OUTPATH=@your_output_file@");
     }
 
 

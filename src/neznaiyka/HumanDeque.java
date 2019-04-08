@@ -36,18 +36,20 @@ public class HumanDeque /*implements Comparable<Human>*/{
     public static String getOutput() {
         return output; }
 
-
+        // TODO Нужен ли compareTo [HumanDeque]
         //если имя по алфавиту меньше чем все остальные имана в коллекции
         //то метод возвращиет отрицательное значение
-    public static int compareTo(String name){
-        int isLast = 0;
-        for (Human hum: HumanDeque.getHumans()) {
-            if (name.compareTo(hum.getName())>0){
-                isLast++;
 
-            }
-        }return HumanDeque.getHumans().size() - isLast;
-    }
+//    @Override
+//    public int compareTo(Human human){
+//        int isLast = 0;
+//        for (Human hum: HumanDeque.getHumans()) {
+//            if (hum.getName().compareTo(human.getName())>0){
+//                isLast++;
+//
+//            }
+//        }return HumanDeque.getHumans().size() - isLast;
+//    }
 
 
 }

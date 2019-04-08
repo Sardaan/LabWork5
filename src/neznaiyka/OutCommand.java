@@ -3,7 +3,6 @@ package neznaiyka;
 public class OutCommand extends Command{
 
     private static final String helpMSG="Команды для интерактивного управления коллекцией \n" +
-            "   help:                 выводит список доступных команд.\n"+
             "   add_from_list:        добавит готовый элемент из списка в коллекцию.\n" +
             "   add_if_last:          добавит элемент в коллекцию, если имя этого объекта по алфавиту в меньшее.\n" +
             "   add:                  добавит новый элемент в коллекцию.\n" +
@@ -13,7 +12,7 @@ public class OutCommand extends Command{
             "   remove:               удалит элемент из коллекции по его значению.\n" +
             "   remove_last:          удалит из коллекции последний элементы.\n" +
             "   start:                запустит основную программу для настроенной коллекции.\n" +
-            "   clear:                очистит коллекцию. \n" +
+            "   clean:                очистит коллекцию. \n" +
             "   exit:                 выход из программы (сохранение текущей коллекции в файл). \n";
 
 
@@ -27,7 +26,8 @@ public class OutCommand extends Command{
         if(HumanDeque.getHumans().size()!=0) {
             return "Подробная информация о коллекции: " + HumanDeque.getHumans().getClass() + "\n" +
                     "Количество элементов: " + HumanDeque.getHumans().size() + "\n" +
-                    "HashCode: " + HumanDeque.getHumans().hashCode() + "\n" ;
+                    // TODO: Верно ли, что hashCode при изменении коллекции одинаковый? Наверное, да
+                    "HashCode: " + HumanDeque.getHumans().hashCode() + "\n";
         }else {
             return "No humans added";
         }

@@ -11,19 +11,10 @@ public class Main {
 
         if (HumanDeque.getOutput()!=null) {
             System.out.println("Write your command or 'help'");
-            Command.readCommand();
+            Command.readCommand(false);
         }
-
-
-
-
-
-
 
 
     }
 }
-//TODO export OUTPATH
-//TODO json reader
-//TODO javadoc update
-//TODO info time
+

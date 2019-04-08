@@ -22,12 +22,12 @@ public class OutCommand extends Command{
      * @return info about collection
      */
     public static String info(){
-
+        long end = System.currentTimeMillis();
+        String timeInfo = (end - AddCommand.getModificationTime())/1000 +" секунд прошло с обновления коллекции";
         if(HumanDeque.getHumans().size()!=0) {
             return "Подробная информация о коллекции: " + HumanDeque.getHumans().getClass() + "\n" +
                     "Количество элементов: " + HumanDeque.getHumans().size() + "\n" +
-                    // TODO: Верно ли, что hashCode при изменении коллекции одинаковый? Наверное, да
-                    "HashCode: " + HumanDeque.getHumans().hashCode() + "\n";
+                    "HashCode: " + HumanDeque.getHumans().hashCode() + "\n"+ timeInfo;
         }else {
             return "No humans added";
         }

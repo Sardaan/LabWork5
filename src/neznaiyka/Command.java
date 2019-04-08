@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Command {
-    public static void readCommand() throws IOException {
 
-        boolean exit=false;
-        while(!exit) {
+public class Command {
+
+
+
+    public static void readCommand(boolean exit) throws IOException {
+        boolean exitCommand = exit;
+        while(!exitCommand) {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             String[] s = br.readLine().replaceAll("[\\s]{2,}", " ").split(" ");
 
@@ -56,7 +59,7 @@ public class Command {
                     System.out.println(OutCommand.help());
                     break;
                 case "exit":
-                    exit=true;
+                    exitCommand = true;
                     break;
                 default:
                     System.out.println("Unknown command");
@@ -66,7 +69,7 @@ public class Command {
         }
     }
 
-    public static void update() {
+    public static void update() throws IOException {
         if (HumanDeque.getOutput()!=null) {
             if (FileRedactor.readFile(HumanDeque.getOutput()) != null) {
                 String info = FileRedactor.readFile(HumanDeque.getOutput()).replaceAll("^[\\s]+", "");
@@ -81,12 +84,18 @@ public class Command {
                     humanInfo.add("thinkingType-" + s.split(";")[2]);
                     humanInfo.add("talent-" + s.split(";")[3]);
 
+                    AddCommand.setModificationTime(System.currentTimeMillis());
                     AddCommand.addHuman(humanInfo);
                     humanInfo.clear();
                 }
             }
-        }else
-            System.out.println("your output enviroment is null" + "\n"+ "at first write: export OUTPATH=@your_output_file@");
+        }else {
+            System.out.println("your output environment is null" + "\n" +
+                    "at first write: export OUTPATH=@your_output_file@"+ "\n" +
+                    "and then you can start the program");
+            readCommand(true);
+        }
+
     }
 
 
@@ -100,7 +109,9 @@ public class Command {
 
 
         if (HumanDeque.getHumans().size() <= 2){
+            AddCommand.setModificationTime(System.currentTimeMillis());
             Action.startAction(AddCommand.addHumanFromList(FileRedactor.readFile(HumanDeque.getInput())));
+            HumanDeque.setAvailableHumans("Pilulkin;Tubic");
             //FileRedactor.writeInFile(output,FileRedactor.readFile(input));
         }else{
             try{Action.getSize(HumanDeque.getHumans());

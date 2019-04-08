@@ -36,9 +36,6 @@ public class HumanDeque /*implements Comparable<Human>*/{
     public static String getOutput() {
         return output; }
 
-        // TODO Нужен ли compareTo [HumanDeque]
-        //если имя по алфавиту меньше чем все остальные имана в коллекции
-        //то метод возвращиет отрицательное значение
 
 //    @Override
 //    public int compareTo(Human human){

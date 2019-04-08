@@ -6,8 +6,13 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class AddCommand extends Command{
-
-
+    private static long modificationTime;
+    public static long getModificationTime(){
+        return modificationTime;
+    }
+    public static void setModificationTime(long newTime){
+        modificationTime = newTime;
+    }
     /**
      * method of adding already created human to the collection
      *
@@ -16,13 +21,18 @@ public class AddCommand extends Command{
     public static void add_from_list() throws IOException {
         System.out.println("Write human from list");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String human = br.readLine();
-        if (HumanDeque.getAvailableHumans().contains(human)){
-            addHumanFromList(human);
-            HumanDeque.setAvailableHumans(HumanDeque.getAvailableHumans().replace(human, "").replace(";;",";").replaceAll("^;|;$",""));
-            FileRedactor.writeInFile(HumanDeque.getAvailableHumans(),FileRedactor.readFile(HumanDeque.getAvailableHumansFile()));
-        }else
-            System.out.println("I don't know this human");
+        String human = br.readLine().replaceAll("[\\s]+","");
+
+        String []hum = HumanDeque.getAvailableHumans().split(";");
+        for (int i=0; i<hum.length; i++) {
+            if (hum.equals(human)) {
+
+                setModificationTime(System.currentTimeMillis());
+                addHumanFromList(human);
+                HumanDeque.setAvailableHumans(HumanDeque.getAvailableHumans().replace(human, "").replace(";;", ";").replaceAll("^;|;$", ""));
+                //FileRedactor.writeInFile(HumanDeque.getAvailableHumans(),FileRedactor.readFile(HumanDeque.getAvailableHumansFile()));
+            }
+        }
     }
 
     /**
@@ -37,6 +47,7 @@ public class AddCommand extends Command{
         ArrayList<String> humanInfo = JSONreader.getJSON();
 
         String info = addHuman(humanInfo);
+        setModificationTime(System.currentTimeMillis());
         if (info!=null && FileRedactor.readFile(HumanDeque.getOutput())!=null)
             FileRedactor.addToFile(HumanDeque.getOutput(),"\n"+info);
         if (info!=null && FileRedactor.readFile(HumanDeque.getOutput())==null)
@@ -72,6 +83,7 @@ public class AddCommand extends Command{
 
         if (name!=null && names.last().equals(name)) {
             info = addHuman(humanInfo);
+            setModificationTime(System.currentTimeMillis());
             if ( FileRedactor.readFile(HumanDeque.getOutput())!=null)
                 FileRedactor.addToFile(HumanDeque.getOutput(),"\n"+info);
             else
@@ -119,7 +131,7 @@ public class AddCommand extends Command{
                     information = "korotyshka;Ern;korotyshka;nope";
                     break;
                 default:
-                    System.out.println("   блять опять че то не так!");
+                    System.out.println("I don't know this human");
                     break;
             }
             if ( FileRedactor.readFile(HumanDeque.getOutput())!=null)
@@ -127,7 +139,6 @@ public class AddCommand extends Command{
             else
                 FileRedactor.addToFile(HumanDeque.getOutput(),information);
         }
-        FileRedactor.writeInFile(HumanDeque.getAvailableHumansFile(),"Pilulkin;Tubic");
         return HumanDeque.getHumans();
 
     }

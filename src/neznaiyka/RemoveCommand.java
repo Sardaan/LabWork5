@@ -20,7 +20,8 @@ public class RemoveCommand extends Command{
             if (hum.getName().equals(human)) {
                 humanToRemove = hum;
             }
-        }if (humanToRemove!=null){myRemove(humanToRemove);}
+        }if (humanToRemove!=null){
+            myRemove(humanToRemove);}
 
     }
 
@@ -43,6 +44,8 @@ public class RemoveCommand extends Command{
 
     public static void myRemove(Human human){
         if (HumanDeque.getHumans().size()!=0) {
+
+            AddCommand.setModificationTime(System.currentTimeMillis());
             HumanDeque.getHumans().remove(human);
 
             String list = "Pilulkin;Guslya;Ponchik;Steclyashkin;Tubic;Znaika;Lenny;Ern";

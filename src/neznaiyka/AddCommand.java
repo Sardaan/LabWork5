@@ -13,6 +13,7 @@ public class AddCommand extends Command{
     public static void setModificationTime(long newTime){
         modificationTime = newTime;
     }
+
     /**
      * method of adding already created human to the collection
      *
@@ -21,16 +22,18 @@ public class AddCommand extends Command{
     public static void add_from_list() throws IOException {
         System.out.println("Write human from list");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String human = br.readLine().replaceAll("[\\s]+","");
+        String human = br.readLine();
+        human.replaceAll("[\\s]+","");
 
         String []hum = HumanDeque.getAvailableHumans().split(";");
         for (int i=0; i<hum.length; i++) {
-            if (hum.equals(human)) {
+            if (hum[i].equals(human)) {
 
                 setModificationTime(System.currentTimeMillis());
                 addHumanFromList(human);
-                HumanDeque.setAvailableHumans(HumanDeque.getAvailableHumans().replace(human, "").replace(";;", ";").replaceAll("^;|;$", ""));
-                //FileRedactor.writeInFile(HumanDeque.getAvailableHumans(),FileRedactor.readFile(HumanDeque.getAvailableHumansFile()));
+                HumanDeque.setAvailableHumans(HumanDeque.getAvailableHumans().replace(human, "").
+                        replace(";;", ";").replaceAll("^;|;$", ""));
+
             }
         }
     }
@@ -42,7 +45,7 @@ public class AddCommand extends Command{
      * @throws IOException
      */
     public static void add(ArrayDeque<Human> humans) throws IOException{
-
+// todo: с пробелами че нить надо сделать и имя если нулл
         System.out.println("Humans paramaters: {name, thinkingType, talent,is he weird or ordinary}");
         ArrayList<String> humanInfo = JSONreader.getJSON();
 
@@ -145,6 +148,7 @@ public class AddCommand extends Command{
 
     public static String addHuman(ArrayList<String> humanInfo){
 
+        String name=null;
 
         int pick1 = new Random().nextInt(ThinkingType.values().length);
         ThinkingType thinkingType = ThinkingType.values()[pick1];
@@ -152,8 +156,7 @@ public class AddCommand extends Command{
         int pick2 = new Random().nextInt(Talent.values().length);
         Talent talent = Talent.values()[pick2];
 
-        String name=null;
-        String humanType = null;
+        String humanType = "ordinary";
 
         for (String info : humanInfo){
             if (info.contains("name")){

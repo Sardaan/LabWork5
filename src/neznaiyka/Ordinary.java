@@ -15,19 +15,12 @@ public class Ordinary extends Human{
 
     @Override
     public void meetSomebody(Object obj){
-        if (this.getState()==State.LAUGH){
-            System.out.println("heheheh! Nezn you're such a weirdo! hehhee");
 
+        if (this.getThinkingType() == ThinkingType.SILLY || this.getThinkingType() == ThinkingType.AVERAGE) {
+            System.out.println(getName() + " : " + getName(obj) + " has an empty head");
+        } else {
+            System.out.println(getName() + " : " + getName(obj) + " hello my dear friend");
         }
-        if (this.getState()==State.STAND) {
-            if (this.getThinkingType() == ThinkingType.SILLY || this.getThinkingType() == ThinkingType.AVERAGE) {
-                System.out.println(getName() + " : " + getName(obj) + " has an empty head");
-            } else {
-                System.out.println(getName() + " : " + getName(obj) + " hello my dear friend");
-            }
-        }
-        setState(State.STAND);
-
 
     }
 }

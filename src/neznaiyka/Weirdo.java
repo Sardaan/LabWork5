@@ -37,12 +37,10 @@ public class Weirdo extends Human {
         System.out.println(getName() + " does everything shivorot na vivorot");
         write();
         read();
-        wear(Clothes.SHOES, Body.FEET);
     }
 
     @Override
     public void meetSomebody(Object obj){
         System.out.println(getName()+" : "+"Hello "+getName(obj)+", i like turn oxygen into carbon dioxide");
     }
-
 }

@@ -7,11 +7,11 @@ import java.util.List;
 public class FileRedactor {
 
 
-    static public String readFile(String filename) {
+    static public String readFile(File file) {
         String line;
         List<String> lines = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
+            BufferedReader br = new BufferedReader(new FileReader(file.getName()));
             while ((line = br.readLine()) != null) {
                 lines.add(line);
             }
@@ -28,9 +28,9 @@ public class FileRedactor {
         }
         return total;
     }
-    static public void writeInFile(String fileName, String text){
+    static public void writeInFile(File file, String text){
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file.getName()));
             bw.write(text);
             bw.close();
         }
@@ -39,9 +39,9 @@ public class FileRedactor {
             e.printStackTrace();
         }
     }
-    static public void addToFile(String fileName, String text){
+    static public void addToFile(File file, String text){
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName,true));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file.getName(),true));
             bw.write(text);
             bw.close();
         }

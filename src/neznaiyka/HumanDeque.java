@@ -2,10 +2,11 @@ package neznaiyka;
 
 import java.util.ArrayDeque;
 import java.util.Map;
+import java.io.*;
 
 
 
-public class HumanDeque /*implements Comparable<Human>*/{
+public class HumanDeque{
 
     private static ArrayDeque<Human> humans = new ArrayDeque<>();
     public static ArrayDeque<Human> getHumans(){
@@ -13,41 +14,24 @@ public class HumanDeque /*implements Comparable<Human>*/{
     }
 
 
-    public static String getAvailableHumans() {
-        return FileRedactor.readFile("AvailableHumans.csv");
-    }
-    public static void setAvailableHumans(String newList){
-        FileRedactor.writeInFile("AvailableHumans.csv", newList);
-    }
-    private static String availableHumansFile = "AvailableHumans.csv";
-    public static String getAvailableHumansFile() {
-        return availableHumansFile;
-    }
-
-    private static String input = "Humans.csv";
-    public static String getInput() {
-        return input;
-    }
-
+    public final static File input = new File("Humans.csv");
     private static Map<String, String> envMap = System.getenv();
-    private static String output = envMap.get("OUTPATH");
+    public final static File output = new File(envMap.get("OUTPATH"));
 
 
-    public static String getOutput() {
-        return output; }
+    // Все придется поменять
 
-
-//    @Override
-//    public int compareTo(Human human){
-//        int isLast = 0;
-//        for (Human hum: HumanDeque.getHumans()) {
-//            if (hum.getName().compareTo(human.getName())>0){
-//                isLast++;
-//
-//            }
-//        }return HumanDeque.getHumans().size() - isLast;
+//    private static String input = "Humans.csv";
+//    public static String getInput() {
+//        return input;
 //    }
 
+//    private static Map<String, String> envMap = System.getenv();
+//    private static String output = envMap.get("OUTPATH");
+//
+//
+//    public static String getOutput() {
+//        return output; }
 
 }
 

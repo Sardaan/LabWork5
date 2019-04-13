@@ -8,5 +8,5 @@ public enum Necessary {
     INSTRUMENT,
     MedicineKIT,
     RUBBERS,
-    UMBRELLA;
+    UMBRELLA
 }

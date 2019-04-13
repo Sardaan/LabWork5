@@ -9,12 +9,21 @@ public class Main {
 
         Command.update();
 
-        if (HumanDeque.getOutput()!=null) {
+        if (HumanDeque.output!=null) {
             System.out.println("Write your command or 'help'");
-            Command.readCommand(false);
+            Command command = new Command();
+            command.readCommand(false);
         }
 
 
     }
 }
 
+//todo outpath,
+//todo права доступа
+//todo доступы в файл
+//todo дофига эксепшенов  :(((
+
+//todo енам в записи файла
+//Todo add if last
+//todo переименовать джарник

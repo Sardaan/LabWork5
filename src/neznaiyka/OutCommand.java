@@ -21,7 +21,7 @@ public class OutCommand extends Command{
      *
      * @return info about collection
      */
-    public static String info(){
+    public String info(){
         long end = System.currentTimeMillis();
         String timeInfo = (end - AddCommand.getModificationTime())/1000 +" секунд прошло с обновления коллекции";
         if(HumanDeque.getHumans().size()!=0) {
@@ -39,32 +39,23 @@ public class OutCommand extends Command{
      * @return elements of collection
      */
 
-    public static String show(){
-        if (FileRedactor.readFile(HumanDeque.getOutput())==null)
+    public String show(){
+        if (FileRedactor.readFile(HumanDeque.output)==null)
             return "There is no added humans";
         else{
 
             System.out.println("humanType;name;thinkingType,talent"+"\n");
-            return FileRedactor.readFile(HumanDeque.getOutput());
+            return FileRedactor.readFile(HumanDeque.output);
         }
     }
 
-
-    /**
-     * method of displaying available humans to add in collection
-     *
-     * @return list of available humans
-     */
-    public static String show_list(){
-        return HumanDeque.getAvailableHumans();
-    }
 
     /**
      * method of displaying information about available commands
      *
      * @return info about available commands
      */
-    public static String help(){
+    public String help(){
         return helpMSG;
     }
 }

@@ -4,23 +4,23 @@ package neznaiyka;
 import java.util.ArrayDeque;
 import java.util.Objects;
 
-public abstract class Human implements HumanActions, EmergencyActions{
+public class Human implements HumanActions, EmergencyActions, Comparable<Human>{
     private ThinkingType thinkingType;
     private WritingType writingType;
     private ReadingType readingType;
-    //private Clothes clothes;
-    //private Body body;
-    //private Necessary things;
-    private State state = State.RUN;
-    private Talent talent=Talent.NOPE;
+    private Talent talent;
     private boolean likeToWork=true;
     private String name;
 
         //конструкторы
 
-    public Human(String name, ThinkingType thinkingType){
+    public Human(String name, ThinkingType thinkingType, Talent talent, WritingType writingType, ReadingType readingType, boolean likeToWork){
         this.name = name;
         this.thinkingType= thinkingType;
+        this.talent = talent;
+        this.writingType = writingType;
+        this.readingType = readingType;
+        this.likeToWork = likeToWork;
     }
     public Human(String name, ThinkingType thinkingType, Talent talent){
         this.name = name;
@@ -29,7 +29,7 @@ public abstract class Human implements HumanActions, EmergencyActions{
     }
 
 
-        //гетеры и сетеры
+        //гетеры и сетер
 
     public boolean getLikeToWork(){
         return this.likeToWork;
@@ -46,13 +46,6 @@ public abstract class Human implements HumanActions, EmergencyActions{
         return this.name;
     }
 
-    public State getState(){
-        return this.state;
-    }
-    public void setState(State state){
-        this.state = state;
-    }
-
     public String getName(Object obj){
         return obj.toString();
     }
@@ -65,12 +58,6 @@ public abstract class Human implements HumanActions, EmergencyActions{
         return thinkingType;
     }
 
-    public void setThinkingType(ThinkingType thinkingType) throws WrongThinkingTypeException{
-        if (thinkingType==ThinkingType.KOROTYSHKA){
-            throw new WrongThinkingTypeException("invalid thinking type");
-        }else{
-            this.thinkingType=thinkingType;}
-    }
     public WritingType getWritingType(){
         return writingType;
     }
@@ -81,14 +68,19 @@ public abstract class Human implements HumanActions, EmergencyActions{
 
     @Override
     public int hashCode() {
-        return name.hashCode() + thinkingType.hashCode();
+        // todo почитай про это
+        int LTW = likeToWork? 1:0;
+        return name.hashCode() + thinkingType.hashCode() + talent.hashCode() +
+                writingType.hashCode() + readingType.hashCode() + LTW;
     }
 
     @Override
     public boolean equals(Object obj) {
 
         if (obj instanceof Human){
-              if (((Human) obj).name.equals(this.name) && ((Human) obj).thinkingType == this.thinkingType)
+              if (((Human) obj).name.equals(this.name) && ((Human) obj).thinkingType == this.thinkingType &&
+                      ((Human) obj).talent.equals(this.talent) && ((Human) obj).writingType.equals(this.writingType) &&
+                      ((Human) obj).readingType.equals(this.readingType) && ((Human) obj).name.equals(this.name))
                   return true;
         }
         return false;
@@ -111,8 +103,8 @@ public abstract class Human implements HumanActions, EmergencyActions{
     }
 
     @Override
-    public void wear(Clothes clothes, Body body){
-        System.out.println(getName() + " wears " +clothes+ " on " + body);
+    public void meetSomebody(Object obj) {
+        System.out.println(getName() + " : " + getName(obj) + " hello my dear friend");
     }
 
 
@@ -135,7 +127,6 @@ public abstract class Human implements HumanActions, EmergencyActions{
             System.out.println(getName() + " does everything shivorot na vivorot");
             write();
             read();
-            wear(Clothes.SHOES, Body.FEET);
     }
 
 
@@ -152,20 +143,17 @@ public abstract class Human implements HumanActions, EmergencyActions{
     @Override
     public void runTo(Object obj){
         System.out.println(getName()+" runs to "+ getName(obj));
-        this.state = State.STAND;
     }
 
-    @Override
-    public void discuss(){
-        if (this.getState()==State.STAND){
-            System.out.println(getName()+": Neznayika think out everything");
-            this.state=State.LAUGH;
-        }
-    }
     public void commend(Object obj){
         if (this.getTalent()==Talent.MUSIC){
             System.out.println(getName(obj)+" : " +getName()+ " you are a such good musician");
         }
     }
+    @Override
+    public int compareTo(Human human){
+        return name.compareTo(human.getName());
+    }
+
 
 }

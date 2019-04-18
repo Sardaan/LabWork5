@@ -5,7 +5,7 @@ public enum Talent {
     MUSIC,
     PAINTING,
     MEDICINE,
-    KNOWLEGE,
+    KNOWLEDGE,
     HOSPITALITY,
     COOKING,
     ThinkingOUT

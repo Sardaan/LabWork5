@@ -3,15 +3,12 @@ package neznaiyka;
 public class OutCommand extends Command{
 
     private static final String helpMSG="Команды для интерактивного управления коллекцией \n" +
-            "   add_from_list:        добавит готовый элемент из списка в коллекцию.\n" +
-            "   add_if_last:          добавит элемент в коллекцию, если имя этого объекта по алфавиту в меньшее.\n" +
             "   add:                  добавит новый элемент в коллекцию.\n" +
-            "   show:                 выводит в стандартный поток вывода все элементы коллекции.\n" +
-            "   show_list:            выводит в стандартный поток вывода готовые элементы которые можно добавить в коллекцию.\n" +
-            "   info:                 выводит в стандартный поток вывода основную информацию о коллекции.\n" +
+            "   add_if_last:          добавит элемент в коллекцию, если имя этого объекта по алфавиту в меньшее.\n" +
             "   remove:               удалит элемент из коллекции по его значению.\n" +
-            "   remove_last:          удалит из коллекции последний элементы.\n" +
-            "   start:                запустит основную программу для настроенной коллекции.\n" +
+            "   remove_last:          удалит из коллекции последний элемент.\n" +
+            "   info:                 выводит в стандартный поток вывода основную информацию о коллекции.\n" +
+            "   show:                 выводит в стандартный поток вывода все элементы коллекции.\n" +
             "   clean:                очистит коллекцию. \n" +
             "   exit:                 выход из программы (сохранение текущей коллекции в файл). \n";
 
@@ -38,14 +35,14 @@ public class OutCommand extends Command{
      *
      * @return elements of collection
      */
-
+//todo toString, saveCollection
     public String show(){
-        if (FileRedactor.readFile(HumanDeque.output)==null)
+        HumanDeque deque = new HumanDeque();
+        if (HumanDeque.getHumans().size()==0)
             return "There is no added humans";
         else{
-
-            System.out.println("humanType;name;thinkingType,talent"+"\n");
-            return FileRedactor.readFile(HumanDeque.output);
+            System.out.println("name,thinkingType,talent,writingType,readingType,likeToWork");
+            return deque.toString();
         }
     }
 

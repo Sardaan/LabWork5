@@ -14,12 +14,12 @@ public class Ordinary extends Human{
 
 
     @Override
-    public void meetSomebody(Object obj){
+    public void meetSomebody(Human human){
 
         if (this.getThinkingType() == ThinkingType.SILLY || this.getThinkingType() == ThinkingType.AVERAGE) {
-            System.out.println(getName() + " : " + getName(obj) + " has an empty head");
+            System.out.println(getName() + " : " + getName(human) + " has an empty head");
         } else {
-            System.out.println(getName() + " : " + getName(obj) + " hello my dear friend");
+            System.out.println(getName() + " : " + getName(human) + " hello my dear friend");
         }
 
     }

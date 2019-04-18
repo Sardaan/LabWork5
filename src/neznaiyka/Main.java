@@ -4,16 +4,24 @@ import java.io.IOException;
 
 public class Main {
 
+
     public static void main(String[] args) throws IOException {
 
+        HumanDeque deque = new HumanDeque();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                deque.saveCollection();
+            } catch (Exception e) {
+                System.err.println("Collection is not saved!");
+            }
 
-        Command.update();
+        }));
 
-        if (HumanDeque.output!=null) {
-            System.out.println("Write your command or 'help'");
-            Command command = new Command();
-            command.readCommand(false);
-        }
+        CSVmanager.load();
+        System.out.println("Write your command or 'help'");
+        Command command = new Command();
+        command.readCommand(true);
+
 
 
     }
@@ -22,8 +30,8 @@ public class Main {
 //todo outpath,
 //todo права доступа
 //todo доступы в файл
-//todo дофига эксепшенов  :(((
+//todo sort
+//todo runtime getRuntime
 
 //todo енам в записи файла
-//Todo add if last
-//todo переименовать джарник
+

@@ -40,7 +40,7 @@ public class Weirdo extends Human {
     }
 
     @Override
-    public void meetSomebody(Object obj){
-        System.out.println(getName()+" : "+"Hello "+getName(obj)+", i like turn oxygen into carbon dioxide");
+    public void meetSomebody(Human human){
+        System.out.println(getName()+" : "+"Hello "+getName(human)+", i like turn oxygen into carbon dioxide");
     }
 }

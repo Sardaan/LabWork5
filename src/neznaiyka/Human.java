@@ -46,8 +46,8 @@ public class Human implements HumanActions, EmergencyActions, Comparable<Human>{
         return this.name;
     }
 
-    public String getName(Object obj){
-        return obj.toString();
+    public String getName(Human human){
+        return human.getName();
     }
 
     public ReadingType getReadingType() {
@@ -89,7 +89,8 @@ public class Human implements HumanActions, EmergencyActions, Comparable<Human>{
 
     @Override
     public String toString(){
-        return getName();
+        return getName() + "," + getThinkingType() + "," + getTalent() + "," + getWritingType() +
+                "," + getReadingType() + "," + getLikeToWork();
     }
 
     @Override
@@ -103,8 +104,8 @@ public class Human implements HumanActions, EmergencyActions, Comparable<Human>{
     }
 
     @Override
-    public void meetSomebody(Object obj) {
-        System.out.println(getName() + " : " + getName(obj) + " hello my dear friend");
+    public void meetSomebody(Human human) {
+        System.out.println(getName() + " : " + getName(human) + " hello my dear friend");
     }
 
 
@@ -141,13 +142,13 @@ public class Human implements HumanActions, EmergencyActions, Comparable<Human>{
         System.out.println(getName()+" takes " + first+" and "+second);
     }
     @Override
-    public void runTo(Object obj){
-        System.out.println(getName()+" runs to "+ getName(obj));
+    public void runTo(Human human){
+        System.out.println(getName()+" runs to "+ getName(human));
     }
 
-    public void commend(Object obj){
+    public void commend(Human human){
         if (this.getTalent()==Talent.MUSIC){
-            System.out.println(getName(obj)+" : " +getName()+ " you are a such good musician");
+            System.out.println(getName(human)+" : " +getName()+ " you are a such good musician");
         }
     }
     @Override

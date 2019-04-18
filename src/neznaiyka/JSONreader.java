@@ -11,6 +11,13 @@ import java.util.Scanner;
 
 public class JSONreader {
 
+    /**
+     * convert JSONObject to Human
+     *
+     * @param jsonString
+     * @return Human
+     * @throws IOException
+     */
 
     public static Human getHumanfromJSON(String jsonString) throws IOException {
 
@@ -39,7 +46,7 @@ public class JSONreader {
 
             if (jsonObject.get("name") != null) {
 
-                String name = (String) jsonObject.get("name");
+                String name = ((String) jsonObject.get("name")).replaceAll("[\\s]{2,}","");
 
                 if (jsonObject.get("thinkingType")!=null)
                     thinkingType = (ThinkingType) jsonObject.get("thinkingType");
@@ -79,16 +86,12 @@ public class JSONreader {
         Scanner scan = new Scanner(System.in);
         String jsonString = scan.nextLine();
 
-        int open = 0;
-        int close = 0;
 
-        do {
-            if (jsonString.contains("{"))
-                open++;
+        while (!jsonString.contains("}")){
+
             jsonString = jsonString + scan.nextLine();
-            if (jsonString.contains("}"))
-                close++;
-        } while (open - close == 0);
+
+        }
 
         return jsonString;
     }

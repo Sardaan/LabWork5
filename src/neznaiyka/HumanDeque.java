@@ -1,8 +1,7 @@
 package neznaiyka;
 
 import java.util.ArrayDeque;
-import java.util.Map;
-import java.io.*;
+
 
 
 
@@ -13,25 +12,40 @@ public class HumanDeque{
         return humans;
     }
 
+    /**
+     * method to save collection
+     */
+    //todo save collection если нет доступа к файлу
+    public void saveCollection(){
 
-    public final static File input = new File("Humans.csv");
-    private static Map<String, String> envMap = System.getenv();
-    public final static File output = new File(envMap.get("OUTPATH"));
+        if(FileChecker.checkFile(CSVmanager.output))
+            CSVmanager.HumansToCSV();
+        else
+            System.out.println("Cant save collection");
+
+    }
 
 
-    // Все придется поменять
+    @Override
+    public String toString() {
+        String str="";
+        if (getHumans().size()!=0) {
+            for (Human human : getHumans()) {
+                str = str + human.getName() + "," + human.getThinkingType() + "," + human.getTalent() + "," + human.getWritingType() +
+                        "," + human.getReadingType() + "," + human.getLikeToWork() + "\n";
+            }
+        }
+        return str;
+    }
+    //todo sort
+    public void sort(){
 
-//    private static String input = "Humans.csv";
-//    public static String getInput() {
-//        return input;
-//    }
-
-//    private static Map<String, String> envMap = System.getenv();
-//    private static String output = envMap.get("OUTPATH");
-//
-//
-//    public static String getOutput() {
-//        return output; }
+    }
+    /* public void sort() {
+        Collections.sort(this, (o1, o2) -> {
+            return (int)(o1.getAge() - o2.getAge());
+        });
+    }*/
 
 }
 

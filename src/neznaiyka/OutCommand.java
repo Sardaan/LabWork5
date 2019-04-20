@@ -1,5 +1,8 @@
 package neznaiyka;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 public class OutCommand extends Command{
 
     private static final String helpMSG="Команды для интерактивного управления коллекцией \n" +
@@ -20,7 +23,12 @@ public class OutCommand extends Command{
      */
     public String info(){
         long end = System.currentTimeMillis();
-        String timeInfo = (end - AddCommand.getModificationTime())/1000 +" секунд прошло с обновления коллекции";
+        String timeInfo;
+        if((end- AddCommand.getModificationTime())/1000 < 60) {
+            timeInfo = (end - AddCommand.getModificationTime()) / 1000 + " секунд прошло с обновления коллекции";
+        }else {
+            timeInfo = (end - AddCommand.getModificationTime()) / 60000 + " минут прошло с обновления коллекции";
+        }
         if(HumanDeque.getHumans().size()!=0) {
             return "Подробная информация о коллекции: " + HumanDeque.getHumans().getClass() + "\n" +
                     "Количество элементов: " + HumanDeque.getHumans().size() + "\n" +
@@ -35,13 +43,13 @@ public class OutCommand extends Command{
      *
      * @return elements of collection
      */
-//todo toString, saveCollection
     public String show(){
         HumanDeque deque = new HumanDeque();
         if (HumanDeque.getHumans().size()==0)
             return "There is no added humans";
         else{
             System.out.println("name,thinkingType,talent,writingType,readingType,likeToWork");
+            //Collections.sort(HumanDeque.getHumans(), HumanDeque.comoareTo());
             return deque.toString();
         }
     }

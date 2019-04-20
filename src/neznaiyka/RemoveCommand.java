@@ -12,8 +12,6 @@ public class RemoveCommand extends Command{
      *
      * @throws IOException
      */
-
-    //todo доделать после изменения csv
     public void removeFromDeque() throws IOException {
         System.out.println("Write person you want to remove");
         String human = (new BufferedReader(new InputStreamReader(System.in))).readLine();
@@ -53,32 +51,4 @@ public class RemoveCommand extends Command{
             remove_last();
         AddCommand.setModificationTime(System.currentTimeMillis());
     }
-
-
-//    public void myRemove(Human human){
-//        if (HumanDeque.getHumans().size()!=0) {
-//
-//            AddCommand.setModificationTime(System.currentTimeMillis());
-//            HumanDeque.getHumans().remove(human);
-//
-//
-//            String string[] = FileRedactor.readFile(HumanDeque.output).split("[\\s]+");
-//            String aHuman="";
-//            String rep=null;
-//            for (String str : string){
-//
-//                int i=0;
-//
-//                if (str.contains(human.getName()) && str!=rep) {
-//                    rep=str;
-//                    str = null;
-//                }
-//                if (str!=null){
-//                    aHuman=aHuman+"\n"+str;
-//                }aHuman = aHuman.replaceAll("^[\\s]+","");
-//                FileRedactor.writeInFile(HumanDeque.output,aHuman);
-//
-//            }
-//        }
-//    }
 }

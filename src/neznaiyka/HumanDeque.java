@@ -3,8 +3,6 @@ package neznaiyka;
 import java.util.ArrayDeque;
 
 
-
-
 public class HumanDeque{
 
     private static ArrayDeque<Human> humans = new ArrayDeque<>();
@@ -18,8 +16,9 @@ public class HumanDeque{
     //todo save collection если нет доступа к файлу
     public void saveCollection(){
 
-        if(FileChecker.checkFile(CSVmanager.output))
+        if(FileChecker.checkFile(CSVmanager.output)) {
             CSVmanager.HumansToCSV();
+        }
         else
             System.out.println("Cant save collection");
 
@@ -37,15 +36,5 @@ public class HumanDeque{
         }
         return str;
     }
-    //todo sort
-    public void sort(){
-
-    }
-    /* public void sort() {
-        Collections.sort(this, (o1, o2) -> {
-            return (int)(o1.getAge() - o2.getAge());
-        });
-    }*/
-
 }
 

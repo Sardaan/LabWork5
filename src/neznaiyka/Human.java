@@ -2,6 +2,7 @@ package neznaiyka;
 
 
 import java.util.ArrayDeque;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Human implements HumanActions, EmergencyActions, Comparable<Human>{
@@ -153,8 +154,7 @@ public class Human implements HumanActions, EmergencyActions, Comparable<Human>{
     }
     @Override
     public int compareTo(Human human){
-        return name.compareTo(human.getName());
+        return name.toLowerCase().compareTo(human.getName().toLowerCase());
     }
-
 
 }

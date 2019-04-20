@@ -27,11 +27,6 @@ public class Main {
     }
 }
 
-//todo outpath,
-//todo права доступа
-//todo доступы в файл
-//todo sort
 //todo runtime getRuntime
 
-//todo енам в записи файла
 

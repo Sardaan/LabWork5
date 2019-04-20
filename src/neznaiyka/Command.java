@@ -14,7 +14,6 @@ public class Command {
             while (exit) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String[] s = br.readLine().replaceAll("[\\s]{2,}", " ").split(" ");
-                //todo как сделатьбез свич по паттернам
                 switch (s[0]) {
                     case "add":
                         AddCommand command1 = new AddCommand();
@@ -66,10 +65,14 @@ public class Command {
             }
         }catch (IOException e){
             System.out.println("command reading error");
+        }catch (NullPointerException nul){
+            System.out.println("you stopped");
+            HumanDeque collection = new HumanDeque();
+            collection.saveCollection();
         }
     }
 
-    // todo save load update check  checkConsole
+    // todo checkConsole
 
 
 

@@ -29,7 +29,7 @@ public class FileRedactor {
             if (total==null){
                 total = str;
             }else
-            total=total+"\n"+str;
+            total=total+";"+str;
         }
         return total;
     }
@@ -54,15 +54,4 @@ public class FileRedactor {
             System.out.println("Can't write in file");
         }
     }
-//    static public void addToFile(File file, String text){
-//        try {
-//            BufferedWriter bw = new BufferedWriter(new FileWriter(file.getName(),true));
-//            bw.write(text);
-//            bw.close();
-//        }
-//
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

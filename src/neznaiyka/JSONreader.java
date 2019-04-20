@@ -46,7 +46,7 @@ public class JSONreader {
 
             if (jsonObject.get("name") != null) {
 
-                String name = ((String) jsonObject.get("name")).replaceAll("[\\s]{2,}","");
+                String name = ((String) jsonObject.get("name")).replaceAll("\t","").replaceAll(" ","");
 
                 if (jsonObject.get("thinkingType")!=null)
                     thinkingType = (ThinkingType) jsonObject.get("thinkingType");

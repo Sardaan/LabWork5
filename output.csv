@@ -1,3 +1,3 @@
-alis,GENIUS,HOSPITALITY,LOWERCASE,ByWORD,true
-jsfnvdi,GENIUS,HOSPITALITY,TYPED,ByWORD,true
-kdld,GENIUS,PAINTING,LOWERCASE,BySYLLABLE,true
+name,thinkingType,talent,writingType,readingType,likeToWork
+alis,SILLY,KNOWLEDGE,TYPED,BY_WORD,true
+kasl,CLEVER,NOPE,TYPED,BY_WORD,true

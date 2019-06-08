@@ -20,7 +20,6 @@ public class FileRedactor {
                 lines.add(line);
             }
         }catch (IOException e) {
-            //e.printStackTrace();
             System.out.println("Can't read file");
         }
         String total = null;

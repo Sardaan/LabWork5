@@ -10,6 +10,11 @@ import java.io.InputStreamReader;
 
 public class Command {
 
+    /**
+     * method to read the console command
+     *
+     */
+
     public void readCommand() {
         // разрешение на выход
         boolean exit = true;
